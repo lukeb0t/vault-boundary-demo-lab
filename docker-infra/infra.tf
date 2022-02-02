@@ -79,44 +79,44 @@ resource "docker_container" "maria_db" {
   }
 }
 
-#resource "docker_container" "boundary_init" {
-#  name       = "boundary_init"
-#  hostname   = "boundary_init"
-#  networks   = [docker_network.network.name]
-#  privileged = true
-#  image      = docker_image.boundary.latest
-#  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql:5432/boundary_clean?sslmode=disable"]
-#  command    = ["database", "init", "-skip-initial-login-role-creation", "-config", "boundary/config.hcl"]
-#  depends_on = [
-#    docker_container.psql
-#  ]
-#  provisioner "local-exec" {
-#    command = "sleep 3"
-#  }
-#}
-#
-#resource "docker_container" "boundary_serv" {
-#  name       = "boundary_serv"
-#  hostname   = "boundary_serv"
-#  networks   = [docker_network.network.name]
-#  privileged = true
-#  image      = docker_image.boundary.latest
-#  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql/boundary_clean?sslmode=disable"]
-#
-#  ports {
-#    internal = 9200
-#    external = 9200
-#  }
-#  ports {
-#    internal = 9201
-#    external = 9201
-#  }
-#  ports {
-#    internal = 9202
-#    external = 9202
-#  }
-#   
-#  depends_on = [
-#    docker_container.boundary_init
-#  ]
-#}
+resource "docker_container" "boundary_init" {
+  name       = "boundary_init"
+  hostname   = "boundary_init"
+  networks   = [docker_network.network.name]
+  privileged = true
+  image      = docker_image.boundary.latest
+  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql:5432/boundary_clean?sslmode=disable"]
+  command    = ["database", "init", "-skip-initial-login-role-creation", "-config", "boundary/config.hcl"]
+  depends_on = [
+    docker_container.psql
+  ]
+  provisioner "local-exec" {
+    command = "sleep 3"
+  }
+}
+
+resource "docker_container" "boundary_serv" {
+  name       = "boundary_serv"
+  hostname   = "boundary_serv"
+  networks   = [docker_network.network.name]
+  privileged = true
+  image      = docker_image.boundary.latest
+  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql/boundary_clean?sslmode=disable"]
+
+  ports {
+    internal = 9200
+    external = 9200
+  }
+  ports {
+    internal = 9201
+    external = 9201
+  }
+  ports {
+    internal = 9202
+    external = 9202
+  }
+   
+  depends_on = [
+    docker_container.boundary_init
+  ]
+}
