@@ -47,14 +47,6 @@ resource "vault_policy" "admin-policy" {
 }
 
 
-resource "vault_token" "boundary" {
-  policies          = [vault_policy.northwind_db_policy.name, vault_policy.controller_policy.name]
-  renewable         = true
-  no_parent         = true
-  period            = "20m"
-  no_default_policy = true
-}
-
 ### Boundary Policies
 resource "vault_policy" "controller_policy" {
   name   = "boundary_controller_policy"
@@ -76,18 +68,6 @@ path "sys/leases/revoke" {
 }
 path "sys/capabilities-self" {
   capabilities = ["update"]
-}
-EOT
-}
-
-resource "vault_policy" "northwind_db_policy" {
-  name   = "northwind_db_policy"
-  policy = <<EOT
-path "psql/creds/analyst" {
-  capabilities = ["read"]
-}
-path "psql/creds/dba" {
-  capabilities = ["read"]
 }
 EOT
 }
