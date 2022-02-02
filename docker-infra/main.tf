@@ -1,9 +1,3 @@
-provider "vault" {
-  address    = "http://127.0.0.1:8201"
-  token      = "groot"
-  token_name = "root"
-}
-
 #provider "boundary" {
 #  addr             = "http://localhost:9200"
 #  recovery_kms_hcl = <<EOT

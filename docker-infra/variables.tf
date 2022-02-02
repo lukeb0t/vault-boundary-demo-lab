@@ -32,11 +32,6 @@ variable "vault_hostname" {
   description = "ip or hostname of the vault server"
 }
 
-variable "vault_port" {
-  default     = 8200
-  description = "the configured port to connect to the psql server"
-}
-
 variable "vault_host_port" {
   default = 8200
 }
