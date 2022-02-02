@@ -53,3 +53,12 @@ provider "vault" {
   namespace = trimsuffix(vault_namespace.finance.id, "/")
   alias     = "finance"
 }
+
+module "vault" {
+source = "./vault"
+}
+
+module "boundary" {
+source = "./boundary"
+vault_token_boundary = module.vault.output.boundary_vault_token
+}

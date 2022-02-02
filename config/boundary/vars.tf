@@ -65,7 +65,8 @@ variable "oidc_issuer" {
 }
 
 variable "api_url_prefix" {
-  description = "oidc url prefix"
+description = "oidc url prefix"
+default = "http://localhost:9200"
 }
 
 #variable "callback_url" {
@@ -73,9 +74,24 @@ variable "api_url_prefix" {
 #  default     = "http://localhost:9200/v1/auth-methods/oidc:authenticate:callback"
 #}
 variable "users_password" {
+default= "rootrootroot"
 }
 
 variable "vault_private_ip" {
+default = "localhost"
 }
 variable "controller_private_ip" {
+default = "localhost"
+}
+
+variable  "vault_token_boundary"{
+description = "vault token for credential store access"
+}
+
+variable "psql_port" {
+default = 5432
+}
+
+variable "vault_port" {
+default = 8200  
 }
