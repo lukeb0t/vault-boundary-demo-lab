@@ -1,20 +1,28 @@
 
-# This Terraform module will rollout the following Vault config for demos:
-  - Namespaces
-  - Postgres integration (dynamic and static credentials)
-  - MariaDB integration (dynamic credentials)
-  - PKI Root CA
-  - PKI Intermediate CA
-  - Basic SSH Engine (No operational demo)
-  - Approle Auth with a policy to retreived a basic KV secret
-  - Transform Secrets Engine
+# Demo Config for Hashicorp's Vault and Boundary Products
 
-# Requirements:
-  - Running instance of Vault *Enterprise*
-  - Running instance of Postgres SQL
-  - Running instance of MariaDB
+## Requirements
+- See the 'infra' terraform module at the root of this project
+- Running instances of:
+  - Hashicorp Vault *Enterprise* (requires a license key)
+  - Hashicorp Boundary
+  - Postgres DB
+  - Maria DB
+## Vault Configuration
+- Namespaces
+- Postgres integration (dynamic and static credentials)
+- MariaDB integration (dynamic credentials)
+- PKI Root CA
+- PKI Intermediate CA
+- Basic SSH Engine (No operational demo)
+- Approle Auth with a policy to retreived a basic KV secret
+- Transform Secrets Engine
+
+## Boundary Configuration
+- Demo Organizational Scopes
+- User, Roles, and Groups
+- Credential Library integrated with Hashicorp Vault
+- Demo Host Sets and Targets
 
 ## TODO
-- [ ] Merge this project with the related docker infrastucture terraform module
 - [ ] Add inline comments to code
-- [ ] Re-integrate Boundary demo code
