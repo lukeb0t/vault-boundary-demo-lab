@@ -1,36 +1,56 @@
-resource "boundary_host_catalog" "backend_servers" {
+resource "boundary_host_catalog_static" "backend_servers" {
   name        = "backend_servers"
   description = "servers for the backend team"
-  type        = "static"
   scope_id    = boundary_scope.db_infra_proj.id
 }
 
-resource "boundary_host_set" "vault_servers" {
-  type            = "static"
+resource "boundary_host_set_static" "vault_servers" {
   name            = "vault cluster nodes"
   description     = "Host set for vault servers"
-  host_catalog_id = boundary_host_catalog.backend_servers.id
-  host_ids        = [boundary_host.hc_vault.id]
+  host_catalog_id = boundary_host_catalog_static.backend_servers.id
+  host_ids        = [boundary_host_static.hc_vault.id]
 }
-resource "boundary_host_set" "database_servers" {
+resource "boundary_host_set_static" "database_servers" {
   type            = "static"
   name            = "db_host_set"
   description     = "Host set for db servers"
-  host_catalog_id = boundary_host_catalog.backend_servers.id
-  host_ids = [boundary_host.postgres_sql.id]
+  host_catalog_id = boundary_host_catalog_static.backend_servers.id
+  host_ids = [boundary_host_static.postgres_sql.id]
 }
 
-resource "boundary_host" "postgres_sql" {
-  type            = "static"
+resource "boundary_host_static" "postgres_sql" {
   name            = "psql server"
   description     = "psql demo database"
   address         = "${var.boundary_host}"
-  host_catalog_id = boundary_host_catalog.backend_servers.id
+  host_catalog_id = boundary_host_catalog_static.backend_servers.id
 }
-resource "boundary_host" "hc_vault" {
-  type            = "static"
+resource "boundary_host_static" "hc_vault" {
+  type            = "static"  
   name            = "vault_cluster"
   description     = "vault cluster"
   address         = "${var.vault_host}"
-  host_catalog_id = boundary_host_catalog.backend_servers.id
+  host_catalog_id = boundary_host_catalog_static.backend_servers.id
+}
+
+## resources for credential library
+
+resource "boundary_host_catalog_static" "host_cat" {
+  name        = "psql host cat"
+  description = "catalog for the northwinds database servers"
+  scope_id    = boundary_scope.db_infra_proj.id
+}
+
+resource "boundary_host_static" "psql" {
+  name            = "docker-psql"
+  description     = "psql northwinds database"
+  address         = "${var.psql_host}"
+  type = "static"
+  host_catalog_id = boundary_host_catalog_static.host_cat.id
+}
+
+resource "boundary_host_set_static" "psql" {
+  name            = "psql_hosts"
+  description     = "host set for psql northwind servers"
+  host_catalog_id = boundary_host_catalog_static.host_cat.id
+  host_ids        = [boundary_host_static.psql.id]
 }

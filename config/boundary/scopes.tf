@@ -1,6 +1,6 @@
 resource "boundary_scope" "global" {
   global_scope = true
-  name         = "ATARC Global Scope"
+  name         = "Global Scope"
   scope_id     = "global"
 }
 

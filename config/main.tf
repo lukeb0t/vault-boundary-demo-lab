@@ -55,13 +55,13 @@ provider "vault" {
 }
 
 module "vault" {
-source = "./vault"
+  source = "./vault"
   providers = {
     vault.finance = vault.finance
   }
 }
 
 module "boundary" {
-source = "./boundary"
-vault_token_boundary = module.vault.boundary_vault_token
+  source               = "./boundary"
+  vault_token_boundary = module.vault.boundary_vault_token
 }

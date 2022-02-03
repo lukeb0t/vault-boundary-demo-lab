@@ -78,7 +78,8 @@ default= "rootrootroot"
 }
 
 variable "vault_host" {
-default = "localhost"
+default = "vault-ent"
+description = "the vault ip or hostname network adjacent to the boundary controller. This may be inside the docker network"
 }
 variable "boundary_host" {
 default = "localhost"
