@@ -24,13 +24,13 @@ resource "boundary_host" "postgres_sql" {
   type            = "static"
   name            = "psql server"
   description     = "psql demo database"
-  address         = "${var.controller_private_ip}"
+  address         = "${var.boundary_host}"
   host_catalog_id = boundary_host_catalog.backend_servers.id
 }
 resource "boundary_host" "hc_vault" {
   type            = "static"
   name            = "vault_cluster"
   description     = "vault cluster"
-  address         = "${var.vault_private_ip}"
+  address         = "${var.vault_host}"
   host_catalog_id = boundary_host_catalog.backend_servers.id
 }

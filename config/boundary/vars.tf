@@ -77,11 +77,15 @@ variable "users_password" {
 default= "rootrootroot"
 }
 
-variable "vault_private_ip" {
+variable "vault_host" {
 default = "localhost"
 }
-variable "controller_private_ip" {
+variable "boundary_host" {
 default = "localhost"
+}
+
+variable "psql_host" {
+  default = "localhost"
 }
 
 variable  "vault_token_boundary"{

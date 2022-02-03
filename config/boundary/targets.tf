@@ -5,7 +5,7 @@ resource "boundary_target" "vault_ssh" {
   scope_id                 = boundary_scope.db_infra_proj.id
   session_connection_limit = -1
   default_port             = 22
-  host_set_ids = [
+  host_source_ids = [
     boundary_host_set.vault_servers.id
   ]
 }
