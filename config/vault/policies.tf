@@ -1,16 +1,3 @@
-resource "vault_policy" "northwind_db_policy" {
-  name   = "northwind_db_policy"
-  policy = <<EOT
-path "psql/creds/analyst" {
-  capabilities = ["read"]
-}
-
-path "psql/creds/dba" {
-  capabilities = ["read"]
-}
-EOT
-}
-
 resource "vault_policy" "northwind_static_policy" {
   name   = "northwind_static_policy"
   policy = <<EOT
@@ -19,7 +6,6 @@ path "database/static-creds/psql_static" {
 }
 EOT
 }
-
 
 resource "vault_policy" "fpe-client-policy" {
   name   = "fpe-client-policy"
@@ -70,6 +56,20 @@ path "sys/capabilities-self" {
 }
 EOT
 }
+
+resource "vault_policy" "northwind_db_policy" {
+  name   = "northwind_db_policy"
+  policy = <<EOT
+path "databases/creds/postgres_analyst" {
+  capabilities = ["read"]
+}
+
+path "databases/creds/postgres_dba" {
+  capabilities = ["read"]
+}
+EOT
+}
+
 
 resource "vault_token" "boundary" {
   policies          = [vault_policy.northwind_db_policy.name, vault_policy.controller_policy.name]
