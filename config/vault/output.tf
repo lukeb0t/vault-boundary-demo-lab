@@ -16,3 +16,7 @@ output "approle_role_token" {
 output "boundary_vault_token" {
     value = vault_token.boundary
 }
+
+output "finance_id" { 
+value = trimsuffix(vault_namespace.finance.id, "/")
+}

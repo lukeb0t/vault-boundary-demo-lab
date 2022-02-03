@@ -28,7 +28,7 @@ variable "root_db" {
 }
 
 variable "vault_hostname" {
-  default     = "hcvault1"
+  default     = "vault-ent"
   description = "ip or hostname of the vault server"
 }
 

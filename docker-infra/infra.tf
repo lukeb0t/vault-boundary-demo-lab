@@ -85,7 +85,7 @@ resource "docker_container" "boundary_init" {
   networks   = [docker_network.network.name]
   privileged = true
   image      = docker_image.boundary.latest
-  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql:5432/boundary_clean?sslmode=disable"]
+  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql:5432/boundary_clean?sslmode=disable"]
   command    = ["database", "init", "-skip-initial-login-role-creation", "-config", "boundary/config.hcl"]
   depends_on = [
     docker_container.psql
@@ -101,7 +101,7 @@ resource "docker_container" "boundary_serv" {
   networks   = [docker_network.network.name]
   privileged = true
   image      = docker_image.boundary.latest
-  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@boundary_psql/boundary_clean?sslmode=disable"]
+  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql/boundary_clean?sslmode=disable"]
 
   ports {
     internal = 9200

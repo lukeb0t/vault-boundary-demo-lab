@@ -50,15 +50,55 @@ provider "vault" {
 provider "vault" {
   address   = "http://${var.vault_host}:${var.vault_port}"
   token     = var.vault_token
-  namespace = trimsuffix(vault_namespace.finance.id, "/")
+  namespace = trimsuffix(vault_namespace.boundary.id, "/")
   alias     = "finance"
 }
 
 module "vault" {
 source = "./vault"
+  providers = {
+    vault.finance = vault.finance
+  }
 }
 
 module "boundary" {
 source = "./boundary"
-vault_token_boundary = module.vault.output.boundary_vault_token
+vault_token_boundary = module.vault.boundary_vault_token
+}
+
+
+## create vault namespaces
+
+resource "vault_namespace" "core_infrastructure" {
+  path = "core_infra"
+}
+
+resource "vault_namespace" "database" {
+  path = "database_team"
+}
+
+resource "vault_namespace" "web_team" {
+  path = "web_team"
+}
+
+resource "vault_namespace" "web_test" {
+  provider = vault.web_team
+  path     = "web_test"
+}
+
+resource "vault_namespace" "web_prod" {
+  provider = vault.web_team
+  path     = "web_prod"
+}
+
+resource "vault_namespace" "hcp" {
+  path = "high_performance_computing"
+}
+
+resource "vault_namespace" "boundary" {
+  path = "boundary"
+}
+
+resource "vault_namespace" "finance" {
+  path = "finance"
 }

@@ -36,7 +36,6 @@ EOT
 
 resource "vault_policy" "admin_policy_finance" {
   provider   = vault.finance
-  depends_on = [vault_namespace.finance]
   name       = "admins"
   policy     = file("policies/admin.hcl")
 }
