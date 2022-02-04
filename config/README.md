@@ -3,6 +3,7 @@
 
 ## Requirements
 - See the 'infra' terraform module at the root of this project
+- Terraform >1.0
 - Running instances of:
   - Hashicorp Vault *Enterprise* (requires a license key)
   - Hashicorp Boundary
