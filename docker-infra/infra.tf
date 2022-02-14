@@ -27,6 +27,10 @@ resource "docker_container" "vault" {
   env = ["VAULT_ADDR=http://127.0.0.1:8200", "VAULT_LICENSE=${var.vault_license}",
   "VAULT_TOKEN=root", "VAULT_DEV_ROOT_TOKEN_ID=root"]
   ports {
+    internal = 5696
+    external = 5696
+  }
+  ports {
     internal = 8200
     external = var.vault_host_port
   }
@@ -48,6 +52,7 @@ resource "docker_container" "psql" {
     internal = 5432
     external = 5432
   }
+
   provisioner "local-exec" {
     command = <<EOT
   sleep 3
