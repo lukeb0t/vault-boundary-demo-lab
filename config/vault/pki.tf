@@ -4,16 +4,6 @@ resource "vault_mount" "pki_root" {
   default_lease_ttl_seconds = 3600
   max_lease_ttl_seconds     = 86400
   description               = "mount point for root CA"
-
-    provisioner "local-exec" {
-    command = <<EOT
-    VAULT_ADDR=http://localhost:8200/   
-    VAULT_TOKEN=root
-    vault write pki_root/root/generate/internal \
-    common_name=hashidemo.com \
-    ttl=8760h
-    EOT
-  }
 }
 
 resource "vault_pki_secret_backend_root_cert" "root_cert" {
@@ -50,6 +40,7 @@ resource "vault_pki_secret_backend_config_urls" "config_urls" {
 }
 
 resource "vault_mount" "pki_intermediate" {
+  depends_on              = [vault_pki_secret_backend_root_cert.root_cert]
   path                      = "pki_intermediate"
   type                      = "pki"
   default_lease_ttl_seconds = 3600
@@ -58,13 +49,11 @@ resource "vault_mount" "pki_intermediate" {
 }
  
  resource "vault_pki_secret_backend_intermediate_cert_request" "request" {
-   depends_on  = [vault_mount.pki_root]
    backend     = vault_mount.pki_intermediate.path
    type        = "internal"
    common_name = "hashidemo.com Intermediate Authority (IA)"
  }
  resource "vault_pki_secret_backend_root_sign_intermediate" "root" {
-   depends_on           = [vault_pki_secret_backend_intermediate_cert_request.request]
    backend              = vault_mount.pki_root.path
    csr                  = vault_pki_secret_backend_intermediate_cert_request.request.csr
    common_name          = "Intermediate CA"
