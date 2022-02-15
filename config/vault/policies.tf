@@ -23,12 +23,12 @@ EOT
 resource "vault_policy" "admin_policy_finance" {
   provider   = vault.finance
   name       = "admins"
-  policy     = file("policies/admin.hcl")
+  policy     = file("vault/policies/admin.hcl")
 }
 
 resource "vault_policy" "admin-policy" {
   name   = "admin"
-  policy = file("policies/admin.hcl")
+  policy = file("vault/policies/admin.hcl")
 }
 
 
