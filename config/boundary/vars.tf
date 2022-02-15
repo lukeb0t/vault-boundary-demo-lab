@@ -100,3 +100,42 @@ default = 5432
 variable "vault_port" {
 default = 8200  
 }
+
+var "enable_oidc" {
+  default = false
+}
+
+variable "oidc_client_id" {
+  description = "oidc provider client ID"
+  sensitive   = true
+  default     = null
+}
+
+variable "oidc_client_secret" {
+  description = "oidc provider client secret"
+  sensitive   = true
+  default     = null
+}
+
+variable "oidc_issuer" {
+  description = "oidc provider issuer URL"
+  default     = null
+}
+
+variable "api_url_prefix" {
+  description = "oidc url prefix"
+  default     = "http://localhost:9200"
+}
+
+variable "callback_url" {
+  description = "oidc callback url address"
+  default     = "http://localhost:9200/v1/auth-methods/oidc:authenticate:callback"
+}
+
+variable "oidc_subject1" {
+  default = null
+}
+
+variable "oidc_subject2" {
+  default = null
+}
