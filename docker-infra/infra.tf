@@ -14,6 +14,10 @@ resource "docker_image" "boundary" {
   name = "hashicorp/boundary:latest"
 }
 
+resource "docker_image" "ssh-otp" {
+ name = "luke/ssh_helper:latest"
+}
+
 resource "docker_network" "network" {
   name = "demo_net"
 }
@@ -24,8 +28,7 @@ resource "docker_container" "vault" {
   networks   = [docker_network.network.name]
   image      = docker_image.vault.latest
   privileged = true
-  env = ["VAULT_ADDR=http://127.0.0.1:8200", "VAULT_LICENSE=${var.vault_license}",
-  "VAULT_TOKEN=root", "VAULT_DEV_ROOT_TOKEN_ID=root"]
+  env = ["VAULT_ADDR=http://127.0.0.1:8200", "VAULT_LICENSE=${var.vault_license}", "VAULT_DEV_ROOT_TOKEN_ID=root"]
   ports {
     internal = 5696
     external = 5696
@@ -33,6 +36,9 @@ resource "docker_container" "vault" {
   ports {
     internal = 8200
     external = var.vault_host_port
+  }
+  capabilities {
+    add = ["IPC_LOCK"]
   }
   provisioner "local-exec" {
     command = <<EOT
@@ -123,5 +129,21 @@ resource "docker_container" "boundary_serv" {
    
   depends_on = [
     docker_container.boundary_init
+  ]
+}
+resource "docker_container" "ssh-otp" {
+  name       = "ssh-otp"
+  hostname   = "ssh-otp"
+  rm = false
+  networks   = [docker_network.network.name]
+  image      = docker_image.ssh-otp.latest
+  privileged = true
+  env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
+  ports {
+    internal = 22
+    external = 8005
+  }
+   depends_on = [
+    docker_container.vault
   ]
 }

@@ -50,7 +50,7 @@ provider "vault" {
 provider "vault" {
   address   = "http://${var.vault_host}:${var.vault_port}"
   token     = var.vault_token
-  namespace = trimsuffix(vault_namespace.boundary.id, "/")
+  namespace = trimsuffix(vault_namespace.finance.id, "/")
   alias     = "finance"
 }
 
