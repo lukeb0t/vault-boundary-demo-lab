@@ -21,17 +21,7 @@ sed -i -e 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication 
 sed -i -e 's/UsePAM no/UsePAM yes/g' /etc/ssh/sshd_config # enable PAM usage
 sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config # disable cleartext tunneling of passwords
 
-## sed -i -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config 
-## 
-## echo "########    pam file   ########:"
-## cat /etc/pam.d/sshd
-## echo "#######   sshd  config   ###########:"
-## cat /etc/ssh/sshd_config
-
-
-
-sudo service ssh stop
-sudo service ssh start
+sudo service ssh restart
 
 curl ${VAULT_ADDR}/v1/sys/health
 
@@ -41,3 +31,5 @@ cat /etc/vault-ssh-helper.d/config.hcl
 # The helper needs to be started in dev mode because
 # TLS was disabled in Vault's config
 vault-ssh-helper -dev -config /etc/vault-ssh-helper.d/config.hcl
+sleep 5
+cat /var/log/vault-ssh.log

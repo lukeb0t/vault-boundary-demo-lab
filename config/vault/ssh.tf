@@ -24,7 +24,7 @@ resource "vault_ssh_secret_backend_role" "otp" {
   provider   = vault.finance
   name = "otp-role"
   backend = vault_mount.ssh.path
-  default_user = "ubuntu"
+  default_user = "vaultuser"
   key_type = "otp"
   cidr_list = "0.0.0.0/0"
 }
