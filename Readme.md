@@ -24,16 +24,6 @@
 
 ## Deployment Instructions:
 
-Manual Option:
-
-  1. Install Docker / Docker Desktop + Terraform >1.0
-  2. Customize the terraform module in the 'docker-infra' directory as needed (set the Vault license variable at the minimum)
-  3. Apply the docker-infra module
-  4. Customize the terraform module in the 'config' directory as needed
-  5. Apply the config module
-
-Scripted Option:
-
   1. Create an auto.fvars file in the 'docker-infra' directory.
   2. Add the only required variable: 'vault_license={yourkey}....'
   1. Create an auto.fvars file in the root 'docker-infra' directory
