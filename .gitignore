@@ -34,3 +34,5 @@
 **/*terraform.tfstate.backup
 **/*tfvars
 **/*.DS_Store
+
+!vault_license.auto.tfvars

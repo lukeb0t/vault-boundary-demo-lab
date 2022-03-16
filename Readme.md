@@ -36,6 +36,8 @@ Scripted Option:
 
   1. Create an auto.fvars file in the 'docker-infra' directory.
   2. Add the only required variable: 'vault_license={yourkey}....'
+  1. Create an auto.fvars file in the root 'docker-infra' directory
+  2. Add your License to the "vault_license.auto.tfvars" file
   4. To trigger both workspaces creation and destruction: use commands 'sh ztlab up' and 'sh ztlab down'
 
 
