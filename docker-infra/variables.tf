@@ -37,4 +37,6 @@ variable "vault_host_port" {
 }
 
 variable "vault_license" {
+  type = string
+  description = "Vault enterprise license key"
 }
