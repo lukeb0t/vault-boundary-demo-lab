@@ -19,9 +19,9 @@ resource "boundary_user" "dave" {
   scope_id = boundary_scope.global.id
 }
 
-resource "boundary_user" "zues" {
-  name        = "zues"
-  description = "password account for zues"
+resource "boundary_user" "zeus" {
+  name        = "zeus"
+  description = "password account for zeus"
   account_ids = [
   boundary_account_password.zues.id]
   scope_id = boundary_scope.global.id

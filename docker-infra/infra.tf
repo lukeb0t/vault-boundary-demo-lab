@@ -50,18 +50,18 @@ resource "docker_container" "psql" {
   env      = ["POSTGRES_PASSWORD=postgres", "POSTGRES_USER=postgres"]
   ports {
     internal = 5432
-    external = 5432
+    external = var.ext_psql_port
   }
 
   provisioner "local-exec" {
     command = <<EOT
   sleep 3
-  psql "postgresql://postgres:postgres@localhost:5432/postgres" -c 'create database boundary_clean'
-  psql "postgresql://postgres:postgres@localhost/postgres" -c 'create database northwind'
-  psql "postgresql://postgres:postgres@localhost/northwind" -f northwind-database.sql --quiet
-  psql "postgresql://postgres:postgres@localhost/northwind" -f northwind-roles.sql --quiet
-  psql "postgresql://postgres:postgres@localhost/postgres" -c "CREATE USER northwind_static WITH PASSWORD 'root';"
-  psql "postgresql://postgres:postgres@localhost/postgres" -c "ALTER USER northwind_static WITH SUPERUSER;"
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database boundary_clean'
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database northwind'
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f northwind-database.sql --quiet
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f northwind-roles.sql --quiet
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c "CREATE USER northwind_static WITH PASSWORD 'root';"
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c "ALTER USER northwind_static WITH SUPERUSER;"
   EOT
   }
 }
@@ -74,12 +74,12 @@ resource "docker_container" "maria_db" {
   env      = ["MYSQL_ROOT_PASSWORD=root"]
   ports {
     internal = 3306
-    external = 3306
+    external = var.ext_maria_port
   }
   provisioner "local-exec" {
     command = <<EOT
   sleep 10
-  mysql -h 127.0.0.1 -uroot -proot < ./maria.sql
+  mysql -h 127.0.0.1 --port ${var.ext_maria_port} -uroot -proot < ./maria.sql
   EOT
   }
 }
@@ -90,7 +90,7 @@ resource "docker_container" "boundary_init" {
   networks   = [docker_network.network.name]
   privileged = true
   image      = docker_image.boundary.latest
-  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql:5432/boundary_clean?sslmode=disable"]
+  env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql/boundary_clean?sslmode=disable"]
   command    = ["database", "init", "-skip-initial-login-role-creation", "-config", "boundary/config.hcl"]
   depends_on = [
     docker_container.psql

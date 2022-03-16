@@ -1,5 +1,5 @@
 provider "boundary" {
-  addr             = "http://localhost:9200"
+  addr             = "http://${var.boundary_host}:${var.boundary_port}"
   recovery_kms_hcl = <<EOT
 kms "aead" {
   purpose = "recovery"

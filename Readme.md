@@ -3,7 +3,7 @@
 ## Requirements
 - Terraform >1.0
 - Docker
-- Vault Enterprise License Key
+- Vault Enterprise License Key (with all features enabled)
 - mysql command line tool
 - psql command line tool
     - If you install with Brew, you MUST also create a new user "/usr/local/opt/postgres/bin/createuser -s postgres"
@@ -35,5 +35,6 @@
 - [ ] Improve inline documentation
 - [ ] Add lab for SSH OTP
 - [ ] outputs for vault and boundary logins
-- [ ] outputs for vault and boundary addresses
-
+- [ ] outputs for vault and boundary address
+- [ ] fixed the enable OIDC in config/main to false by default
+- [ ] review variable usage in infra module

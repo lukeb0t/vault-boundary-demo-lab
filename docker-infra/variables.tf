@@ -1,6 +1,15 @@
-variable "psql_port" {
-  default     = 5432
+variable "ext_psql_port" {
+  default     = 8542
   description = "port the vault and boundary servers will use to connect to the psql server"
+}
+
+variable "ext_maria_port" {
+  default     = 8545
+  description = "port the vault and boundary servers will use to connect to the maria server"
+}
+
+variable "vault_host_port" {
+  default = 8200
 }
 
 variable "psql_service_accnt" {
@@ -30,10 +39,6 @@ variable "root_db" {
 variable "vault_hostname" {
   default     = "vault-ent"
   description = "ip or hostname of the vault server"
-}
-
-variable "vault_host_port" {
-  default = 8200
 }
 
 variable "vault_license" {
