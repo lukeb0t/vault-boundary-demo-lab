@@ -20,6 +20,7 @@
 - User, Roles, and Groups
 - Credential Library integrated with Hashicorp Vault
 - Demo Host Sets and Targets
+- SSH Target (No operational demo, yet)
 
 ## Deployment Instructions:
 
