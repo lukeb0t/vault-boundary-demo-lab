@@ -6,7 +6,6 @@
 - Vault Enterprise License Key (with all features enabled)
 - mysql command line tool
 - psql command line tool
-    - If you install with Brew, you MUST also create a new user "/usr/local/opt/postgres/bin/createuser -s postgres"
 - Some other stuff I probably forgot but thats what error handling is for
 ## Vault Configuration
 - Namespaces
@@ -27,14 +26,12 @@
 
 ## Deployment Instructions:
   
-  1. Add your License to the "vault_license.auto.tfvars" file
-  2. Add the only required variable: 'vault_license={yourkey}....'
-  3. To trigger both workspaces creation and destruction: use commands 'sh ztlab up' and 'sh ztlab down'
+  1. Review all your port usage to ensure no overlap with 8200,9200,8542,8545 (All of the these defualts can be changed in /docker-infra/variables.tf)
+  2. Add your License to the "vault_license.auto.tfvars" file
+  3. Add the only required variable: 'vault_license={yourkey}....'
+  4. To trigger both workspaces creation and destruction: use commands 'sh ztlab up' and 'sh ztlab down'
 
 
 - [ ] Improve inline documentation
 - [ ] Add lab for SSH OTP
-- [ ] outputs for vault and boundary logins
-- [ ] outputs for vault and boundary address
-- [ ] fixed the enable OIDC in config/main to false by default
 - [ ] review variable usage in infra module
