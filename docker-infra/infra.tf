@@ -40,12 +40,6 @@ resource "docker_container" "vault" {
   capabilities {
     add = ["IPC_LOCK"]
   }
-  provisioner "local-exec" {
-    command = <<EOT
-  sleep 2
-  df
-  EOT
-  }
 }
 
 resource "docker_container" "psql" {

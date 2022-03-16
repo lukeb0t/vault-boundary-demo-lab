@@ -4,7 +4,8 @@
 - Terraform >1.0
 - Docker
 - Vault Enterprise License Key
-- psql command line
+- mysql command line tool
+- psql command line tool
     - If you install with Brew, you MUST also create a new user "/usr/local/opt/postgres/bin/createuser -s postgres"
 - Some other stuff I probably forgot but thats what error handling is for
 ## Vault Configuration
@@ -33,3 +34,6 @@
 
 - [ ] Improve inline documentation
 - [ ] Add lab for SSH OTP
+- [ ] outputs for vault and boundary logins
+- [ ] outputs for vault and boundary addresses
+

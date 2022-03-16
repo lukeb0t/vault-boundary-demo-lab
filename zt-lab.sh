@@ -3,6 +3,7 @@ WORKDIR=$(pwd)
 
 
 if [ "${ACTION}" = "up" ]; then
+  terraform -chdir=${WORKDIR}/docker-infra init && terraform -chdir=-chdir=${WORKDIR}/config init
   terraform -chdir=${WORKDIR}/docker-infra apply -auto-approve=true && terraform -chdir=/Users/lukemccleary/hashi-labs/vault-boundary-demo-lab/config apply -auto-approve=true
 fi
 
