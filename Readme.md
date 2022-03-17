@@ -28,7 +28,7 @@
 
 ## Deployment Instructions:
   
-1. Review all your port usage to ensure no overlap (All of the these defaults can be changed in /docker-infra/vars.tf)
+1. Review all your host port usage to ensure no overlap with the docker exposed ports (All of the these defaults can be changed in /docker-infra/vars.tf and /config/vars.tf )
   - Vault @ 8211
   - Boundary @ 9211
   - PSQL @ 5433

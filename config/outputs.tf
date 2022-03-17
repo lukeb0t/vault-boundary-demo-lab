@@ -1,9 +1,9 @@
 output "Vault_Address" {
-    value = "http://${var.vault_host}:${var.vault_port}"
+    value = "http://${var.vault_host}:${var.vault_port_ext}"
 }
 
 output "Boundary_Address" {
-    value = "http://${var.boundary_host}:${var.boundary_port}"
+    value = "http://${var.boundary_host}:${var.boundary_port_ext}"
 }
 
 output "Vault_Token" {

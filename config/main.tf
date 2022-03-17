@@ -1,5 +1,5 @@
 provider "boundary" {
-  addr             = "http://${var.boundary_host}:${var.boundary_port}"
+  addr             = "http://${var.boundary_host}:${var.boundary_port_ext}"
   recovery_kms_hcl = <<EOT
 kms "aead" {
   purpose = "recovery"
@@ -10,45 +10,45 @@ kms "aead" {
 EOT
 }
 provider "vault" {
-  address = "http://${var.vault_host}:${var.vault_port}"
+  address = "http://${var.vault_host}:${var.vault_port_ext}"
   token   = var.vault_token
 }
 
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.core_infra.id, "/")
   alias     = "core_infra"
 }
 
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.database_team.id, "/")
   alias     = "database_team"
 }
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.web_team.id, "/")
   alias     = "web_team"
 }
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.high_performance_computing.id, "/")
   alias     = "hpc"
 }
 
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.boundary.id, "/")
   alias     = "boundary"
 }
 
 provider "vault" {
-  address   = "http://${var.vault_host}:${var.vault_port}"
+  address   = "http://${var.vault_host}:${var.vault_port_ext}"
   token     = var.vault_token
   namespace = trimsuffix(vault_namespace.finance.id, "/")
   alias     = "finance"
