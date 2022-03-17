@@ -54,6 +54,8 @@ provider "vault" {
   alias     = "finance"
 }
 
+# Run the local configuration modules for Vault and Boundary
+
 module "vault" {
   source = "./vault"
   providers = {
@@ -64,7 +66,7 @@ module "vault" {
 module "boundary" {
   source               = "./boundary"
   vault_token_boundary = module.vault.boundary_vault_token
-  enable_oidc = true
+  enable_oidc = false
   oidc_issuer        = var.oidc_issuer
   oidc_client_secret = var.oidc_client_secret
   oidc_client_id     = var.oidc_client_id
