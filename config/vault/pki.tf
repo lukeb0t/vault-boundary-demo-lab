@@ -74,7 +74,7 @@ resource "vault_mount" "pki_intermediate" {
    allow_ip_sans      = true
    key_type           = "rsa"
    key_bits           = 4096
-   allowed_domains    = ["demo.hashicorp.com"]
+   allowed_domains    = ["hashidemo.com"]
    allow_subdomains   = true
    allow_bare_domains = true
  }

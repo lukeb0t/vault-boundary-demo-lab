@@ -64,15 +64,6 @@ variable "oidc_issuer" {
   default     = null
 }
 
-variable "api_url_prefix" {
-description = "oidc url prefix"
-default = "http://localhost:9200"
-}
-
-#variable "callback_url" {
-#  description = "oidc callback url address"
-#  default     = "http://localhost:9200/v1/auth-methods/oidc:authenticate:callback"
-#}
 variable "users_password" {
 default= "rootrootroot"
 }
@@ -81,23 +72,26 @@ variable "vault_host" {
 default = "vault-ent"
 description = "the vault ip or hostname network adjacent to the boundary controller. This may be inside the docker network"
 }
-variable "boundary_host" {
-default = "localhost"
-}
 
 variable "psql_host" {
-  default = "localhost"
+  default = "postgres-sql"
 }
 
 variable  "vault_token_boundary"{
 description = "vault token for credential store access"
 }
 
-variable "psql_port" {
+### DO NOT MODIFY THESE PORTS, THEY ARE CONTAINED WITH DOCKER
+
+variable "int_psql_port" {
 default = 5432
 }
 
-variable "vault_port" {
-default = 8200  
+variable "int_vault_port" {
+default = 8200
+}
+
+variable "ext_boundary_port" {
+default = 9211
 }
 

@@ -7,8 +7,8 @@ resource "boundary_auth_method_oidc" "auth0" {
   issuer             = var.oidc_issuer
   client_id          = var.oidc_client_id
   client_secret      = var.oidc_client_secret
-  #callback_url       = var.callback_url
-  api_url_prefix     = var.api_url_prefix
+  callback_url       = "http://localhost:9211/v1/auth-methods/oidc:authenticate:callback"
+  api_url_prefix     = "http://localhost:${var.ext_boundary_port}"
   claims_scopes      = ["profile"]
 }
 

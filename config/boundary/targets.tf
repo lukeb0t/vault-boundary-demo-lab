@@ -14,7 +14,7 @@ resource "boundary_target" "psql_dba" {
   name         = "psql_dbas"
   description  = "northwinds database targetfor dbas"
   type         = "tcp"
-  default_port = var.psql_port
+  default_port = var.int_psql_port
   scope_id     = boundary_scope.db_infra_proj.id
   host_source_ids = [
     boundary_host_set_static.psql.id
@@ -28,7 +28,7 @@ resource "boundary_target" "psql_analysts" {
   name         = "psql_analysts"
   description  = "northwinds database target for analysts"
   type         = "tcp"
-  default_port = var.psql_port
+  default_port = var.int_psql_port
   scope_id     = boundary_scope.db_infra_proj.id
   # worker_filter = "\"/region\" == \"us-east-1\""
   host_source_ids = [

@@ -10,7 +10,7 @@ variable "vault_host" {
 
 variable "vault_port" {
   description = "the configured port to connect to the vault server"
-  default     = 8200
+  default     = 8211
 }
 
 variable "boundary_host" {
@@ -20,7 +20,7 @@ variable "boundary_host" {
 
 variable "boundary_port" {
   description = "the configured port to connect to the boundary controller"
-  default     = 9200
+  default     = 9211
 }
 
 variable "oidc_issuer" {

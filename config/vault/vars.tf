@@ -1,7 +1,7 @@
 
 variable "psql_port" {
   description = "port the vault and boundary servers will use to connect to the psql server"
-  default     = 5432
+  default = 5432
 }
 
 variable "psql_user" {
@@ -34,21 +34,11 @@ variable "maria_pw" {
 }
 
 variable "mariadb_port" {
-  default = 3306
   description = "configured port for mariadb instance"
+  default = 3306
 }
 
 variable "psql_root_db" {
   description = "the master db of the psql server for the vault connection"
   default     = "postgres"
-}
-
-variable "vault_host" {
-  description = "ip or hostname of the vault server"
-  default     = "localhost"
-}
-
-variable "vault_port" {
-  description = "the configured port to connect to the vault server"
-  default     = 8200
 }

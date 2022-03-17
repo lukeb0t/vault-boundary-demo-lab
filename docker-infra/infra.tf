@@ -35,7 +35,7 @@ resource "docker_container" "vault" {
   }
   ports {
     internal = 8200
-    external = var.vault_host_port
+    external = var.ext_vault_port
   }
   capabilities {
     add = ["IPC_LOCK"]
@@ -110,15 +110,15 @@ resource "docker_container" "boundary_serv" {
 
   ports {
     internal = 9200
-    external = 9200
+    external = var.boundary_ui_port
   }
   ports {
     internal = 9201
-    external = 9201
+    external = var.boundary_worker_port
   }
   ports {
     internal = 9202
-    external = 9202
+    external = var.boundary_other_port
   }
    
   depends_on = [

@@ -10,20 +10,7 @@ resource "boundary_host_set_static" "vault_servers" {
   host_catalog_id = boundary_host_catalog_static.backend_servers.id
   host_ids        = [boundary_host_static.hc_vault.id]
 }
-resource "boundary_host_set_static" "database_servers" {
-  type            = "static"
-  name            = "db_host_set"
-  description     = "Host set for db servers"
-  host_catalog_id = boundary_host_catalog_static.backend_servers.id
-  host_ids = [boundary_host_static.postgres_sql.id]
-}
 
-resource "boundary_host_static" "postgres_sql" {
-  name            = "psql server"
-  description     = "psql demo database"
-  address         = "${var.boundary_host}"
-  host_catalog_id = boundary_host_catalog_static.backend_servers.id
-}
 resource "boundary_host_static" "hc_vault" {
   type            = "static"  
   name            = "vault_cluster"
