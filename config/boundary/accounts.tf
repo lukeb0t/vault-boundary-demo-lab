@@ -1,8 +1,8 @@
 
 
-resource "boundary_account_password" "zues" {
-  name           = "zues"
-  login_name     = "zues"
+resource "boundary_account_password" "zeus" {
+  name           = "zeus"
+  login_name     = "zeus"
   description    = "global admin account for the other god of thunder"
   type           = "password"
   password       = var.users_password
@@ -17,7 +17,7 @@ resource "boundary_account_password" "hermes" {
   password       = var.users_password
   auth_method_id = boundary_auth_method_password.global_pass.id
 }
-// organiation level group for the leadership team
+
 resource "boundary_account_password" "hera" {
   name           = "hera"
   login_name     = "hera"

@@ -11,40 +11,9 @@ variable "enable_oidc" {
   default = false
 }
 
-variable "backend_team" {
-  type = set(string)
-  default = [
-    "jim",
-    "mike",
-    "todd",
-  ]
-}
-
-variable "frontend_team" {
-  type = set(string)
-  default = [
-    "randy",
-    "susmitha",
-  ]
-}
-
-variable "leadership_team" {
-  type = set(string)
-  default = [
-    "jeff",
-    "pete",
-    "jonathan",
-    "malnick"
-  ]
-}
-
 variable "target_ips" {
   type    = set(string)
   default = ["192.168.1.10"]
-}
-
-variable "kms_recovery_key_id" {
-  default = null
 }
 
 variable "oidc_client_id" {
@@ -83,15 +52,15 @@ description = "vault token for credential store access"
 
 ### DO NOT MODIFY THESE PORTS, THEY ARE CONTAINED WITH DOCKER
 
-variable "int_psql_port" {
+variable "psql_port_int" {
 default = 5432
 }
 
-variable "int_vault_port" {
+variable "vault_port_int" {
 default = 8200
 }
 
-variable "ext_boundary_port" {
+variable "boundary_port_ext" {
 default = 9211
 }
 

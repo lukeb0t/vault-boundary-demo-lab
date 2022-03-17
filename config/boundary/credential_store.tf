@@ -2,7 +2,7 @@ resource "boundary_credential_store_vault" "creds_store" {
   name        = "infra_creds_store"
   description = "credential store for the infrastructure project"
   scope_id    = boundary_scope.db_infra_proj.id
-  address     = "http://${var.vault_host}:${var.int_vault_port}"
+  address     = "http://${var.vault_host}:${var.vault_port_int}"
   token       = var.vault_token_boundary
 }
 

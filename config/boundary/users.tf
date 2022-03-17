@@ -23,7 +23,7 @@ resource "boundary_user" "zeus" {
   name        = "zeus"
   description = "password account for zeus"
   account_ids = [
-  boundary_account_password.zues.id]
+  boundary_account_password.zeus.id]
   scope_id = boundary_scope.global.id
 }
 
