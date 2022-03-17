@@ -22,17 +22,17 @@
 - Demo Organizational Scopes
 - User, Roles, and Groups
 - Credential Library integrated with Hashicorp Vault
+- PSQL Targets for DBA and Analyst Roles
 - Demo Host Sets and Targets
 - SSH Target (No operational demo, yet)
 
 ## Deployment Instructions:
   
   1. Review all your port usage to ensure no overlap (All of the these defaults can be changed in /docker-infra/vars.tf)
-     - Vault @ 8211
-     - Boundary @ 9211
-     - PSQL @ 5433
-     - MySQL @ 3307
-
+  - Vault @ 8211
+  - Boundary @ 9211
+  - PSQL @ 5433
+  - MySQL @ 3307
   2. Add your License to the "vault_license.auto.tfvars" file
   3. Add the only required variable: 'vault_license={yourkey}....'
   4. To trigger both workspaces creation and destruction: use commands 'sh ztlab up' and 'sh ztlab down'
