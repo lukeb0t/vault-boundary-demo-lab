@@ -28,10 +28,10 @@
 ## Deployment Instructions:
   
   1. Review all your port usage to ensure no overlap (All of the these defaults can be changed in /docker-infra/vars.tf)
-    - Vault @ 8211
-    - Boundary @ 9211
-    - PSQL @ 5433
-    - MySQL @ 3307
+     - Vault @ 8211
+     - Boundary @ 9211
+     - PSQL @ 5433
+     - MySQL @ 3307
 
   2. Add your License to the "vault_license.auto.tfvars" file
   3. Add the only required variable: 'vault_license={yourkey}....'
