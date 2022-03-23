@@ -10,15 +10,15 @@ if [ "${ACTION}" = "up" ]; then
 fi
 
 if [ "${ACTION}" = "down" ]; then
-  terraform -chdir=$CONFIG_PATH apply -destroy -auto-approve=true
-  rm $CONFIG_PATH/terraform.tfstate*
+  terraform -chdir=$INFRA_PATH apply -destroy -auto-approve=true
+  rm $INFRA_PATH/terraform.tfstate*
   rm $CONFIG_PATH/terraform.tfstate*
 fi
 
 if [ "${ACTION}" = "plan" ]; then
-  terraform -chdir=$CONFIG_PATH plan && terraform -chdir=$CONFIG_PATH plan
+  terraform -chdir=$INFRA_PATH plan
 fi
 
 if [ "${ACTION}" = "upgrade" ]; then
-  terraform -chdir=$CONFIG_PATH init -upgrade && terraform -chdir=$CONFIG_PATH init -upgrade
+  terraform -chdir=$CONFIG_PATH init -upgrade && terraform -chdir=$INFRA_PATH init -upgrade
 fi
