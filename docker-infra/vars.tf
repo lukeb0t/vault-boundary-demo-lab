@@ -53,6 +53,11 @@ variable "vault_hostname" {
   description = "ip or hostname of the vault server"
 }
 
+variable "ssh_hostname" {
+  default     = "ssh_server"
+  description = "ip or hostname of the ssh server"
+}
+
 variable "vault_license" {
   type = string
   description = "Vault enterprise license key"

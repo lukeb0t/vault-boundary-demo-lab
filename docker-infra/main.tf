@@ -3,7 +3,7 @@ provider "docker" {
 }
 
 resource "docker_image" "vault" {
-  name = "hashicorp/vault-enterprise:latest"
+  name = "hashicorp/vault-enterprise"
 }
 
 resource "docker_image" "psql" {
@@ -15,15 +15,29 @@ resource "docker_image" "maria" {
 }
 
 resource "docker_image" "boundary" {
-  name = "hashicorp/boundary:latest"
+  name = "hashicorp/boundary"
 }
 
-# resource "docker_image" "ssh-otp" {
-#  name = "luke/ssh_helper:latest"
-# }
+resource "docker_image" "ssh-otp" {
+ name = "luke/ssh_otp:v1"
+}
 
 resource "docker_network" "network" {
   name = "demo_net"
+}
+
+resource "docker_container" "ssh-otp" {
+  name       = var.ssh_hostname
+  hostname   = var.ssh_hostname
+  networks   = [docker_network.network.name]
+  image      = docker_image.ssh-otp.name
+  privileged = true
+  env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
+  ports {
+    internal = 22
+    external = 2222
+  }
+   depends_on = [docker_container.vault]
 }
 
 resource "docker_container" "vault" {
@@ -129,19 +143,3 @@ resource "docker_container" "boundary_serv" {
     docker_container.boundary_init
   ]
 }
-# resource "docker_container" "ssh-otp" {
-#   name       = "ssh-otp"
-#   hostname   = "ssh-otp"
-#   rm = false
-#   networks   = [docker_network.network.name]
-#   image      = docker_image.ssh-otp.latest
-#   privileged = true
-#   env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
-#   ports {
-#     internal = 22
-#     external = 8005
-#   }
-#    depends_on = [
-#     docker_container.vault
-#   ]
-# }
