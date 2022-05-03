@@ -13,15 +13,15 @@ allowed_roles = "*"
 allowed_cidr_list="0.0.0.0/0"
 EOF
 
-# # Set PAMD
-# sed -i -e 's/^@include common-auth/#@include common-auth/g' /etc/pam.d/sshd 
-# echo "auth requisite pam_exec.so quiet expose_authtok log=/var/log/vault-ssh.log /usr/local/bin/vault-ssh-helper -dev -config=/etc/vault-ssh-helper.d/config.hcl" | tee -a /etc/pam.d/sshd
-# echo "auth optional pam_unix.so not_set_pass use_first_pass nodelay" | tee -a /etc/pam.d/sshd
-# 
-# 
-# sed -i -e 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config # enable ChallengeResponseAuthentication
-# sed -i -e 's/UsePAM no/UsePAM yes/g' /etc/ssh/sshd_config # enable PAM usage
-# sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config # disable cleartext tunneling of passwords
+# Set PAMD
+sed -i -e 's/^@include common-auth/#@include common-auth/g' /etc/pam.d/sshd 
+echo "auth requisite pam_exec.so quiet expose_authtok log=/var/log/vault-ssh.log /usr/local/bin/vault-ssh-helper -dev -config=/etc/vault-ssh-helper.d/config.hcl" | tee -a /etc/pam.d/sshd
+echo "auth optional pam_unix.so not_set_pass use_first_pass nodelay" | tee -a /etc/pam.d/sshd
+
+
+sed -i -e 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config # enable ChallengeResponseAuthentication
+sed -i -e 's/UsePAM no/UsePAM yes/g' /etc/ssh/sshd_config # enable PAM usage
+sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config # disable cleartext tunneling of passwords
 
 service ssh stop
 service ssh start
