@@ -28,7 +28,7 @@ resource "vault_pki_secret_backend_role" "root_role" {
   allow_ip_sans      = true
   key_type           = "rsa"
   key_bits           = 4096
-  allowed_domains    = ["hashicorp.com"]
+  allowed_domains    = ["hashidemo.com"]
   allow_subdomains   = true
   allow_bare_domains = true
 }

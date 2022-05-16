@@ -18,27 +18,27 @@ resource "docker_image" "boundary" {
   name = "hashicorp/boundary"
 }
 
-resource "docker_image" "ssh-otp" {
- name = "luke/ssh_otp:v1"
-}
+# resource "docker_image" "ssh-otp" {
+#  name = "luke/ssh_otp:v1"
+# }
 
 resource "docker_network" "network" {
   name = "demo_net"
 }
 
-resource "docker_container" "ssh-otp" {
-  name       = var.ssh_hostname
-  hostname   = var.ssh_hostname
-  networks   = [docker_network.network.name]
-  image      = docker_image.ssh-otp.name
-  privileged = true
-  env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
-  ports {
-    internal = 22
-    external = 2222
-  }
-   depends_on = [docker_container.vault]
-}
+# resource "docker_container" "ssh-otp" {
+#   name       = var.ssh_hostname
+#   hostname   = var.ssh_hostname
+#   networks   = [docker_network.network.name]
+#   image      = docker_image.ssh-otp.name
+#   privileged = true
+#   env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
+#   ports {
+#     internal = 22
+#     external = 2222
+#   }
+#    depends_on = [docker_container.vault]
+# }
 
 resource "docker_container" "vault" {
   name       = var.vault_hostname
