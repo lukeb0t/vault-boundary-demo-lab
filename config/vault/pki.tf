@@ -1,7 +1,7 @@
 resource "vault_mount" "pki_root" {
   path                      = "pki_root"
   type                      = "pki"
-  default_lease_ttl_seconds = 3600
+  default_lease_ttl_seconds = 36000
   max_lease_ttl_seconds     = 86400
   description               = "mount point for root CA"
 }
@@ -24,7 +24,7 @@ resource "vault_pki_secret_backend_root_cert" "root_cert" {
 resource "vault_pki_secret_backend_role" "root_role" {
   backend            = vault_mount.pki_root.path
   name               = "root_pki_admin"
-  ttl                = 8000
+  ttl                = 80000
   allow_ip_sans      = true
   key_type           = "rsa"
   key_bits           = 4096
@@ -43,7 +43,7 @@ resource "vault_mount" "pki_intermediate" {
   depends_on              = [vault_pki_secret_backend_root_cert.root_cert]
   path                      = "pki_intermediate"
   type                      = "pki"
-  default_lease_ttl_seconds = 3600
+  default_lease_ttl_seconds = 36000
   max_lease_ttl_seconds     = 86400
   description               = "mount point for intermediate CA"
 }
@@ -70,7 +70,7 @@ resource "vault_mount" "pki_intermediate" {
  resource "vault_pki_secret_backend_role" "int_role" {
    backend            = vault_mount.pki_intermediate.path
    name               = "intermediate_pki_admin"
-   ttl                = 1000
+   ttl                = 10000
    allow_ip_sans      = true
    key_type           = "rsa"
    key_bits           = 4096
