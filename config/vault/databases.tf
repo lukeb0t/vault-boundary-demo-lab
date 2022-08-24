@@ -20,13 +20,9 @@ resource "vault_database_secret_backend_connection" "mariadb_connection" {
   allowed_roles = ["maria_dba", "maria_analyst"]
 
  mysql{
-    connection_url = "{{username}}:{{password}}@tcp(${var.mariadb_host}:${var.mariadb_port})/"
+    connection_url = "${var.maria_pw}:${var.maria_pw}@tcp(${var.mariadb_host}:${var.mariadb_port})/"
     max_idle_connections = 100
   }
-  data = {
-    username = var.maria_user
-    password = var.maria_pw
-    }
 } 
 
 resource "vault_database_secret_backend_static_role" "psql_static_role" {
