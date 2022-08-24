@@ -2,8 +2,11 @@ terraform {
   required_providers {
     vault = {
       source  = "hashicorp/vault"
-      version = "3.3.1"
       configuration_aliases = [ vault.finance ]
+    }
+    random = {
+      source = "hashicorp/random"
+      version = "3.3.2"
     }
   }
 }

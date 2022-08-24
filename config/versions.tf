@@ -4,9 +4,12 @@ terraform {
       source = "hashicorp/boundary"
       version = "1.0.6"
     }
-      vault = {
+    vault = {
       source = "hashicorp/vault"
-      version = "3.3.1"
-    }
-  }
+    } 
+    random = {
+      source = "hashicorp/random"
+      version = "3.3.2"
+    }  
+}
 }
