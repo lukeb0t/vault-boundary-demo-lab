@@ -19,7 +19,7 @@ resource "boundary_target" "psql_dba" {
   host_source_ids = [
     boundary_host_set_static.psql.id
   ]
-  application_credential_source_ids = [
+  brokered_credential_source_ids = [
     boundary_credential_library_vault.northwind_dba.id
   ]
 }
@@ -34,7 +34,7 @@ resource "boundary_target" "psql_analysts" {
   host_source_ids = [
     boundary_host_set_static.psql.id
   ]
-  application_credential_source_ids = [
+  brokered_credential_source_ids = [
     boundary_credential_library_vault.northwind_analyst.id
   ]
 }
