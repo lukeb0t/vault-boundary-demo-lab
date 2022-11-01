@@ -7,8 +7,6 @@ resource "vault_mount" "ssh-client-signer" {
 resource "vault_ssh_secret_backend_ca" "ssh-client-signer" {
     backend = vault_mount.ssh-client-signer.path
     generate_signing_key = true
-    #public_key = file("../docker-infra/files/vault_keys.pub")
-    #private_key = file("../docker-infra/files/vault_keys")
 }
 
 resource "null_resource" "ssh_client_setup" {
@@ -116,14 +114,3 @@ path "ssh-client-signer/sign/security_ops" {
 }
 EOT
 }
-
-
-
-# resource "vault_ssh_secret_backend_role" "otp" {
-#   provider   = vault.finance
-#   name = "otp-role"
-#   backend = vault_mount.ssh.path
-#   default_user = "vault"
-#   key_type = "otp"
-#   cidr_list = "0.0.0.0/0"
-# }
