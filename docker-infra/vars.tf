@@ -62,3 +62,13 @@ variable "vault_license" {
   type = string
   description = "Vault enterprise license key"
 }
+
+variable "open-ssh-server-name" {
+  type = string
+  default = "open-ssh-server"
+  description = "name of your open ssh container"
+}
+
+variable "host_files_path" {
+  default = "/Users/lukemccleary/hashi-labs/vault-boundary-demo-lab/docker-infra/files"
+}

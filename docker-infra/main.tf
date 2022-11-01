@@ -18,6 +18,10 @@ resource "docker_image" "boundary" {
   name = "hashicorp/boundary"
 }
 
+resource "docker_image" "open-ssh-server" {
+  name = "lscr.io/linuxserver/openssh-server:latest"
+}
+
 # resource "docker_image" "ssh-otp" {
 #  name = "luke/ssh_otp:v1"
 # }
@@ -26,19 +30,52 @@ resource "docker_network" "network" {
   name = "demo_net"
 }
 
-# resource "docker_container" "ssh-otp" {
-#   name       = var.ssh_hostname
-#   hostname   = var.ssh_hostname
-#   networks   = [docker_network.network.name]
-#   image      = docker_image.ssh-otp.name
-#   privileged = true
-#   env = ["VAULT_ADDR=http://vault-ent:8200", "NS=finance"]
-#   ports {
-#     internal = 22
-#     external = 2222
-#   }
-#    depends_on = [docker_container.vault]
-# }
+resource "docker_container" "open-ssh-server" {
+  name       = var.open-ssh-server-name
+  hostname   = var.open-ssh-server-name
+  networks   = [docker_network.network.name]
+  image      = docker_image.open-ssh-server.name
+  privileged = true
+  restart = "unless-stopped"
+  env = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"] #, "PUBLIC_KEY_FILE=/keys/openssh.pub" 
+  
+  ports {
+    internal = 2222
+    external = 2222
+  }
+
+  volumes {
+   host_path = var.host_files_path
+   container_path = "/keys"
+  }
+  
+  provisioner "remote-exec" {
+    connection {
+      host        = "localhost"
+      port = 2222
+      user        = "admin"
+      type        = "ssh"
+      password = "Hashi123#"
+      timeout     = "2m"
+      
+    }
+
+    inline = [<<EOT
+      cp /keys/vault_keys.pub /etc/ssh/trusted-user-ca-keys.pem
+      echo "TrustedUserCAKeys /etc/ssh/trusted-user-ca-keys.pem" | tee -a /etc/ssh/sshd_config
+    EOT
+    ]
+    }
+
+  provisioner "local-exec" {
+    command = <<EOT
+    docker container restart open-ssh-server
+    EOT
+  }
+
+  depends_on = [docker_container.vault]
+  }
+
 
 resource "docker_container" "vault" {
   name       = var.vault_hostname
@@ -72,7 +109,7 @@ resource "docker_container" "psql" {
   }
 
   provisioner "local-exec" {
-    command = <<EOT
+  command = <<EOT
   sleep 3
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database boundary_clean'
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database northwind'
