@@ -1,12 +1,12 @@
-resource "boundary_target" "vault_ssh" {
+resource "boundary_target" "ssh" {
   type                     = "tcp"
-  name                     = "vault_ssh"
-  description              = "vault server SSH target"
+  name                     = "ssh"
+  description              = "SSH target"
   scope_id                 = boundary_scope.db_infra_proj.id
   session_connection_limit = -1
-  default_port             = 22
+  default_port             = var.ssh_host_int
   host_source_ids = [
-    boundary_host_set_static.vault_servers.id
+    boundary_host_set_static.ssh_hosts.id
   ]
 }
 
@@ -30,7 +30,6 @@ resource "boundary_target" "psql_analysts" {
   type         = "tcp"
   default_port = var.psql_port_int
   scope_id     = boundary_scope.db_infra_proj.id
-  # worker_filter = "\"/region\" == \"us-east-1\""
   host_source_ids = [
     boundary_host_set_static.psql.id
   ]

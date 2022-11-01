@@ -64,3 +64,10 @@ variable "boundary_port_ext" {
 default = 9211
 }
 
+variable "ssh_host" {
+  default = "open-ssh-server"
+}
+
+variable "ssh_host_int" {
+default = 2222
+}
