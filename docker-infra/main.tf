@@ -3,7 +3,7 @@ provider "docker" {
 }
 
 resource "docker_image" "vault" {
-  name = "hashicorp/vault-enterprise"
+  name = "hashicorp/vault-enterprise:latest"
 }
 
 resource "docker_image" "psql" {
@@ -15,7 +15,7 @@ resource "docker_image" "maria" {
 }
 
 resource "docker_image" "boundary" {
-  name = "hashicorp/boundary"
+  name = "hashicorp/boundary:latest"
 }
 
 resource "docker_image" "open-ssh-server" {
@@ -38,6 +38,21 @@ resource "docker_container" "open-ssh-server" {
   ports {
     internal = 2222
     external = 2222
+  }
+  }
+
+resource "docker_container" "vault-agent" {
+  name       = var.vault-agent-hostname
+  hostname   = var.vault-agent-hostname
+  networks   = [docker_network.network.name]
+  image      = docker_image.open-ssh-server.name
+  privileged = true
+  restart = "unless-stopped"
+  env = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"]
+  
+  ports {
+    internal = 2222
+    external = 2020
   }
   }
 

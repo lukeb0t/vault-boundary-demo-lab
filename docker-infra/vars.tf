@@ -69,6 +69,10 @@ variable "open-ssh-server-name" {
   description = "name of your open ssh container"
 }
 
+variable "vault-agent-hostname" {
+  default = "vault-agent-demo"
+}
+
 variable "host_files_path" {
   default = "/Users/lukemccleary/hashi-labs/vault-boundary-demo-lab/docker-infra/files"
 }
