@@ -11,11 +11,6 @@ variable "enable_oidc" {
   default = false
 }
 
-variable "target_ips" {
-  type    = set(string)
-  default = ["192.168.1.10"]
-}
-
 variable "oidc_client_id" {
   description = "oidc provider client ID"
   sensitive   = true
@@ -37,20 +32,15 @@ variable "users_password" {
 default= "rootrootroot"
 }
 
-variable "vault_host" {
-default = "vault-ent"
-description = "the vault ip or hostname network adjacent to the boundary controller. This may be inside the docker network"
-}
-
-variable "psql_host" {
-  default = "postgres-sql"
-}
-
 variable  "vault_token_boundary"{
 description = "vault token for credential store access"
 }
 
 ### DO NOT MODIFY THESE PORTS, THEY ARE CONTAINED WITH DOCKER
+
+variable "ssh_host_int" {
+default = 2222
+}
 
 variable "psql_port_int" {
 default = 5432
@@ -68,6 +58,12 @@ variable "ssh_host" {
   default = "open-ssh-server"
 }
 
-variable "ssh_host_int" {
-default = 2222
+variable "psql_host" {
+  default = "postgres-sql"
+}
+
+variable "vault_host" {
+default = "vault-ent"
+description = "the vault ip or hostname network adjacent to the boundary controller. This may be inside the docker network"
+
 }
