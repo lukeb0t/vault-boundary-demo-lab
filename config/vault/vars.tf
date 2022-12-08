@@ -1,7 +1,7 @@
 
 variable "psql_port" {
   description = "port the vault and boundary servers will use to connect to the psql server"
-  default = 5432
+  default     = 5432
 }
 
 variable "psql_user" {
@@ -24,18 +24,18 @@ variable "mariadb_host" {
 }
 
 variable "maria_user" {
-  default = "root"
+  default     = "root"
   description = "MariaDB service account username"
 }
 
 variable "maria_pw" {
-  default = "root"
+  default     = "root"
   description = "MariaDB service account password"
 }
 
 variable "mariadb_port" {
   description = "configured port for mariadb instance"
-  default = 3306
+  default     = 3306
 }
 
 variable "psql_root_db" {

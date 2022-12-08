@@ -1,7 +1,15 @@
+variable "users_password" {
+  description = "password set for all boundary user accounts"
+  default     = "rootrootroot"
+}
+
+## OIDC Settings
+
 variable "oidc_subject2" {
   description = "oidc subject string for global admin"
   default     = null
 }
+
 variable "oidc_subject1" {
   description = "oidc subject string for dev org admin"
   default     = null
@@ -28,42 +36,45 @@ variable "oidc_issuer" {
   default     = null
 }
 
-variable "users_password" {
-default= "rootrootroot"
+variable "vault_token_boundary" {
+  description = "vault token for credential store access"
 }
 
-variable  "vault_token_boundary"{
-description = "vault token for credential store access"
-}
-
-### DO NOT MODIFY THESE PORTS, THEY ARE CONTAINED WITH DOCKER
+### YOU SHOULD NOT NEED TO MODIFY THESE PORTS
+### THEY ARE CONTAINED WITH DOCKER
+### AND NEED TO MATCH THE THE DOCKER INFRA TF MODULE
 
 variable "ssh_host_int" {
-default = 2222
+  default = 2222
 }
 
 variable "psql_port_int" {
-default = 5432
+  default = 5432
 }
 
 variable "vault_port_int" {
-default = 8200
+  default = 8200
 }
 
 variable "boundary_port_ext" {
-default = 9211
+  default = 9211
 }
 
+### YOU SHOULD NOT NEED TO MODIFY THESE HOSTNAMES
+### THEY ARE CONTAINED WITH DOCKER
+
+
 variable "ssh_host" {
-  default = "open-ssh-server"
+  default     = "open-ssh-server"
+  description = "SSH target ip or hostname, network adjacent to the boundary controller"
 }
 
 variable "psql_host" {
-  default = "postgres-sql"
+  default     = "postgres-sql"
+  description = "psql server ip or hostname, network adjacent to the boundary controller"
 }
 
 variable "vault_host" {
-default = "vault-ent"
-description = "the vault ip or hostname network adjacent to the boundary controller. This may be inside the docker network"
-
+  default     = "vault-ent"
+  description = "vault server ip or hostname, network adjacent to the boundary controller"
 }

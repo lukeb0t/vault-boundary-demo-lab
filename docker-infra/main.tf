@@ -32,14 +32,14 @@ resource "docker_container" "open-ssh-server" {
   networks   = [docker_network.network.name]
   image      = docker_image.open-ssh-server.name
   privileged = true
-  restart = "unless-stopped"
-  env = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"]
-  
+  restart    = "unless-stopped"
+  env        = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"]
+
   ports {
     internal = 2222
     external = 2222
   }
-  }
+}
 
 resource "docker_container" "vault-agent" {
   name       = var.vault-agent-hostname
@@ -47,14 +47,14 @@ resource "docker_container" "vault-agent" {
   networks   = [docker_network.network.name]
   image      = docker_image.open-ssh-server.name
   privileged = true
-  restart = "unless-stopped"
-  env = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"]
-  
+  restart    = "unless-stopped"
+  env        = ["SUDO_ACCESS=true", "USER_NAME=admin", "USER_PASSWORD=Hashi123#", "PASSWORD_ACCESS=true"]
+
   ports {
     internal = 2222
     external = 2020
   }
-  }
+}
 
 resource "docker_container" "vault" {
   name       = var.vault_hostname
@@ -62,7 +62,7 @@ resource "docker_container" "vault" {
   networks   = [docker_network.network.name]
   image      = docker_image.vault.latest
   privileged = true
-  env = ["VAULT_ADDR=http://127.0.0.1:8200", "VAULT_LICENSE=${var.vault_license}", "VAULT_DEV_ROOT_TOKEN_ID=root"]
+  env        = ["VAULT_ADDR=http://127.0.0.1:8200", "VAULT_LICENSE=${var.vault_license}", "VAULT_DEV_ROOT_TOKEN_ID=root"]
   ports {
     internal = 5696
     external = 5696
@@ -88,7 +88,7 @@ resource "docker_container" "psql" {
   }
 
   provisioner "local-exec" {
-  command = <<EOT
+    command = <<EOT
   sleep 3
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database boundary_clean'
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database northwind'
@@ -154,7 +154,7 @@ resource "docker_container" "boundary_serv" {
     internal = 9202
     external = var.boundary_other_port
   }
-   
+
   depends_on = [
     docker_container.boundary_init
   ]

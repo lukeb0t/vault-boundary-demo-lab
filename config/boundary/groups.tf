@@ -25,6 +25,6 @@ resource "boundary_group" "hpc_admins" {
 resource "boundary_group" "read_only" {
   name        = "read_only"
   description = "ready and list access only"
-  member_ids = [boundary_user.hermes.id]
-  scope_id = boundary_scope.global.id
+  member_ids  = [boundary_user.hermes.id]
+  scope_id    = boundary_scope.global.id
 }

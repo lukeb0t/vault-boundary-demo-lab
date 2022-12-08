@@ -4,9 +4,9 @@
 
 # Enable kv-v2 secrets engine in the finance namespace
 resource "vault_mount" "kv-v2" {
-  provider   = vault.finance
-  path       = "kv-v2"
-  type       = "kv-v2"
+  provider = vault.finance
+  path     = "kv-v2"
+  type     = "kv-v2"
 }
 
 # Transform secrets engine at root

@@ -21,9 +21,9 @@ EOT
 }
 
 resource "vault_policy" "admin_policy_finance" {
-  provider   = vault.finance
-  name       = "admins"
-  policy     = file("vault/policies/admin.hcl")
+  provider = vault.finance
+  name     = "admins"
+  policy   = file("vault/policies/admin.hcl")
 }
 
 resource "vault_policy" "admin-policy" {

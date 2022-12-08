@@ -5,7 +5,7 @@ resource "boundary_role" "global_org_admin" {
   grant_strings = [
     "id=*;type=*;actions=*"
   ]
-  principal_ids = [boundary_group.global_admins.id,]
+  principal_ids = [boundary_group.global_admins.id, ]
 }
 
 resource "boundary_role" "hpc_org_admin" {
@@ -17,7 +17,7 @@ resource "boundary_role" "hpc_org_admin" {
   ]
   principal_ids = [
     boundary_group.global_admins.id,
-    boundary_group.hpc_admins.id]
+  boundary_group.hpc_admins.id]
 }
 resource "boundary_role" "core_infra_admin" {
   name           = "core_infra_admin"
@@ -28,7 +28,7 @@ resource "boundary_role" "core_infra_admin" {
   ]
   principal_ids = [
     boundary_group.infra_admins.id,
-    boundary_group.global_admins.id]
+  boundary_group.global_admins.id]
 }
 resource "boundary_role" "infra_proj_admin" {
   name           = "infra_proj_admin"
@@ -40,7 +40,7 @@ resource "boundary_role" "infra_proj_admin" {
   ]
   principal_ids = [
     boundary_group.infra_admins.id,
-    boundary_group.global_admins.id]
+  boundary_group.global_admins.id]
 }
 
 resource "boundary_role" "global_anon_listing" {

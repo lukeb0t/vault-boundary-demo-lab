@@ -19,11 +19,11 @@ resource "vault_database_secret_backend_connection" "mariadb_connection" {
   name          = "mariadb"
   allowed_roles = ["maria_dba", "maria_analyst"]
 
- mysql{
-    connection_url = "${var.maria_pw}:${var.maria_pw}@tcp(${var.mariadb_host}:${var.mariadb_port})/"
+  mysql {
+    connection_url       = "${var.maria_pw}:${var.maria_pw}@tcp(${var.mariadb_host}:${var.mariadb_port})/"
     max_idle_connections = 100
   }
-} 
+}
 
 resource "vault_database_secret_backend_static_role" "psql_static_role" {
   backend             = vault_mount.databases.path
@@ -58,21 +58,21 @@ resource "vault_database_secret_backend_role" "psql_dba_role" {
 }
 
 resource "vault_database_secret_backend_role" "maria_analyst_role" {
-  backend     = vault_mount.databases.path
-  name        = "maria_analyst"
-  db_name     = vault_database_secret_backend_connection.mariadb_connection.name
-  default_ttl = 300
-  max_ttl     = 3000
+  backend             = vault_mount.databases.path
+  name                = "maria_analyst"
+  db_name             = vault_database_secret_backend_connection.mariadb_connection.name
+  default_ttl         = 300
+  max_ttl             = 3000
   creation_statements = ["CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON *.* TO '{{name}}'@'%';"]
-  
+
 }
 
 resource "vault_database_secret_backend_role" "maria_dba_role" {
-  backend     = vault_mount.databases.path
-  name        = "maria_dba"
-  db_name     = vault_database_secret_backend_connection.mariadb_connection.name
-  default_ttl = 300
-  max_ttl     = 3000
+  backend             = vault_mount.databases.path
+  name                = "maria_dba"
+  db_name             = vault_database_secret_backend_connection.mariadb_connection.name
+  default_ttl         = 300
+  max_ttl             = 3000
   creation_statements = ["CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT ALL PRIVILEGES ON *.* TO '{{name}}'@'%';"]
 }
 

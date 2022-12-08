@@ -40,7 +40,7 @@ resource "boundary_user" "hera" {
   description = "password account for hera"
   account_ids = [
   boundary_account_password.hera.id]
-  scope_id    = boundary_scope.global.id
+  scope_id = boundary_scope.global.id
 }
 
 resource "boundary_user" "ares" {
@@ -48,5 +48,5 @@ resource "boundary_user" "ares" {
   description = "password account for ares"
   account_ids = [
   boundary_account_password.ares.id]
-  scope_id    = boundary_scope.global.id
+  scope_id = boundary_scope.global.id
 }

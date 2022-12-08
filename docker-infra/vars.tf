@@ -59,13 +59,13 @@ variable "ssh_hostname" {
 }
 
 variable "vault_license" {
-  type = string
+  type        = string
   description = "Vault enterprise license key"
 }
 
 variable "open-ssh-server-name" {
-  type = string
-  default = "open-ssh-server"
+  type        = string
+  default     = "open-ssh-server"
   description = "name of your open ssh container"
 }
 

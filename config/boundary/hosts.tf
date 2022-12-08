@@ -12,10 +12,10 @@ resource "boundary_host_set_static" "vault_servers" {
 }
 
 resource "boundary_host_static" "hc_vault" {
-  type            = "static"  
+  type            = "static"
   name            = "vault_cluster"
   description     = "vault cluster"
-  address         = "${var.vault_host}"
+  address         = var.vault_host
   host_catalog_id = boundary_host_catalog_static.backend_servers.id
 }
 
@@ -28,8 +28,8 @@ resource "boundary_host_catalog_static" "ssh_host_cat" {
 resource "boundary_host_static" "ssh_host" {
   name            = "ssh_demo_container"
   description     = "ssh host"
-  address         = "${var.ssh_host}"
-  type = "static"
+  address         = var.ssh_host
+  type            = "static"
   host_catalog_id = boundary_host_catalog_static.ssh_host_cat.id
 }
 
@@ -52,8 +52,8 @@ resource "boundary_host_catalog_static" "psql_host_cat" {
 resource "boundary_host_static" "psql" {
   name            = "docker-psql"
   description     = "psql northwinds database"
-  address         = "${var.psql_host}"
-  type = "static"
+  address         = var.psql_host
+  type            = "static"
   host_catalog_id = boundary_host_catalog_static.psql_host_cat.id
 }
 
