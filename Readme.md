@@ -13,7 +13,7 @@
 - MariaDB integration (dynamic credentials)
 - PKI Root CA (hashidemo.com)
 - PKI Intermediate CA (*.hashidemo.com)
-- Basic SSH Engine (No operational demo, yet)
+- Basic SSH Engine with support for cert signing
 - Approle Auth with a policy to retreived a basic KV secret (approle creds are a TF output)
 - Transform Secrets Engine (tranformation data is a TF output)
 
