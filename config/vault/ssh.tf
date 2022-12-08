@@ -33,6 +33,7 @@ resource "null_resource" "ssh_client_setup" {
     docker container restart open-ssh-server
     EOT
   }
+
   depends_on = [vault_ssh_secret_backend_ca.ssh-client-signer
   ]
 }
