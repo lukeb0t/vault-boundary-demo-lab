@@ -32,6 +32,7 @@
   - Boundary @ 9211
   - PSQL @ 5433
   - MySQL @ 3307
+  - SSH @ 222
 2. Add your License to the "vault_license.auto.tfvars" file
 3. Add the only required variable: 'vault_license={yourkey}....'
 4. To trigger both workspaces creation and destruction: use commands 'sh ztlab up' and 'sh ztlab down'
