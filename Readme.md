@@ -22,9 +22,8 @@
 - Demo Organizational Scopes
 - User, Roles, and Groups
 - Credential Library integrated with Hashicorp Vault
-- PSQL Targets for DBA and Analyst Roles
-- Demo Host Sets and Targets
-- SSH Target (No operational demo, yet)
+- PSQL Host Set and Targets for DBA and Analyst Roles
+- SSH Host Set and Target 
 
 ## Deployment Instructions:
   
