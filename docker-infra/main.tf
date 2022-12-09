@@ -92,8 +92,8 @@ resource "docker_container" "psql" {
   sleep 3
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database boundary_clean'
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database northwind'
-  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f northwind-database.sql --quiet
-  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f northwind-roles.sql --quiet
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f /files/northwind-database.sql --quiet
+  psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f /files/northwind-roles.sql --quiet
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c "CREATE USER northwind_static WITH PASSWORD 'root';"
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c "ALTER USER northwind_static WITH SUPERUSER;"
   EOT
@@ -113,7 +113,7 @@ resource "docker_container" "maria_db" {
   provisioner "local-exec" {
     command = <<EOT
   sleep 10
-  mysql -h 127.0.0.1 --port ${var.ext_maria_port} -uroot -proot < ./maria.sql
+  mysql -h 127.0.0.1 --port ${var.ext_maria_port} -uroot -proot < ./files/maria.sql
   EOT
   }
 }
@@ -123,9 +123,16 @@ resource "docker_container" "boundary_init" {
   hostname   = "boundary_init"
   networks   = [docker_network.network.name]
   privileged = true
+  #rm = true #automatically remove init container once it exits
   image      = docker_image.boundary.latest
   env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql/boundary_clean?sslmode=disable"]
   command    = ["database", "init", "-skip-initial-login-role-creation", "-config", "boundary/config.hcl"]
+  
+  # volumes {
+  #   host_path = "/Users/lukemccleary/hashi-labs/vault-boundary-demo-lab/docker-infra/files"
+  #   container_path = "/boundary/"
+  # }
+  
   depends_on = [
     docker_container.psql
   ]
@@ -141,6 +148,11 @@ resource "docker_container" "boundary_serv" {
   privileged = true
   image      = docker_image.boundary.latest
   env        = ["BOUNDARY_POSTGRES_URL=postgresql://postgres:postgres@postgres-sql/boundary_clean?sslmode=disable"]
+
+  # volumes {
+  #   host_path = "/Users/lukemccleary/hashi-labs/vault-boundary-demo-lab/docker-infra/files"
+  #   container_path = "/boundary/"
+  # }
 
   ports {
     internal = 9200
