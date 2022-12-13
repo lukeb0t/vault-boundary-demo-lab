@@ -6,7 +6,7 @@ variable "vault_port_ext" {
 
 variable "boundary_port_ext" {
   description = "the configured port to connect to the boundary controller"
-  default     = 9211
+  default     = 9200
 }
 
 variable "vault_token" {

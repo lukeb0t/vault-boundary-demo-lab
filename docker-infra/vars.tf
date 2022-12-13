@@ -13,15 +13,15 @@ variable "ext_vault_port" {
 }
 
 variable "boundary_ui_port" {
-  default = 9211
+  default = 9200
 }
 
 variable "boundary_worker_port" {
-  default = 9212
+  default = 9202
 }
 
 variable "boundary_other_port" {
-  default = 9213
+  default = 9203
 }
 
 variable "psql_service_accnt" {
