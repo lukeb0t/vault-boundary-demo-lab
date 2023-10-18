@@ -27,5 +27,6 @@ output "approle_role_secret_id" {
 
 output "approle_role_token" {
   value = module.vault.approle_role_token
+  sensitive = true
 }
 
