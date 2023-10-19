@@ -108,7 +108,7 @@ resource "docker_container" "psql" {
   
   provisioner "local-exec" {
     command = <<EOT
-  sleep 15
+  sleep 30
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database boundary_clean'
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/postgres" -c 'create database northwind'
   psql "postgresql://postgres:postgres@localhost:${var.ext_psql_port}/northwind" -f ./files/northwind-database.sql --quiet
